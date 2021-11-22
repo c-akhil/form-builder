@@ -13,6 +13,21 @@ function App() {
       placeholder: "Jhon",
       type: INPUT_TYPES.TEXT,
       className: "form-control",
+    },
+    {
+      key: 'email',
+      label: 'Email',
+      placeholder: "test@example.com",
+      type: INPUT_TYPES.TEXT,
+      className: "form-control",
+    },
+    {
+      label: 'Submit',
+      type: INPUT_TYPES.BUTTON,
+      className: "m-3 mx-auto d-flex btn btn-primary",
+      onClick: (data)=>{
+        console.log(data, "submit data")
+      }
     }
   ]);
 
@@ -31,9 +46,6 @@ function App() {
         </div>
         <div className="col-6">
           <FormBuilder
-            onSubmit={(data) => {
-              console.log(data, "submit data")
-            }}
             onChange={(data) => {
               setFormData(data);
             }}

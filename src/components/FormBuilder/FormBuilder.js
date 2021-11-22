@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { INPUT_TYPES } from "../../constants/inputTypes";
+import InputButton from "../FormElements/InputButton";
 import InputText from "../FormElements/InputText";
 // const InputText = React.lazy(() => import("../FormElements/InputText"));
 
@@ -44,6 +45,20 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
       )
     }
 
+    if (element.type === INPUT_TYPES.BUTTON) {
+      return (
+        <React.Fragment>
+          <InputButton
+            className={element.className}
+            onClick={element.onClick}
+            value={formData}
+          >
+            {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          </InputButton>
+        </React.Fragment>
+      )
+    }
+
     return <React.Fragment />;
   }
 
@@ -51,7 +66,8 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
   useEffect(() => {
     const newFormData = {};
     form && form.forEach((element) => {
-      newFormData[element.key] = element.value;
+      if (element.key)
+        newFormData[element.key] = element.value;
     });
     setFormData(newFormData)
   }, [form])
