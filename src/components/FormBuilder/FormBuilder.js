@@ -5,15 +5,30 @@ import InputText from "../FormElements/InputText";
 
 
 
-export default function FormBuilder({ form, onSubmit }) {
+export default function FormBuilder({ form, onSubmit, onChange }) {
   const [formData, setFormData] = useState({});
 
-  function getInputUIByType(element, setFormData) {
+  const onChangeFormData = (data) => {
+    if (onChange && typeof onChange === "function") {
+      const newFormData = [];
+      form && form.forEach((element) => {
+        newFormData.push({
+          ...element,
+          value: data[element.key]
+        })
+      });
+      onChange(newFormData);
+    } else {
+      setFormData(data);
+    }
+  }
+
+  function getInputUIByType(element, setUpdatedFormData) {
 
     const setNewInputValue = (newElementValue) => {
       const newFormData = { ...formData };
       newFormData[element.key] = newElementValue;
-      setFormData(newFormData);
+      setUpdatedFormData(newFormData);
     }
 
     if (element.type === INPUT_TYPES.TEXT) {
@@ -42,11 +57,11 @@ export default function FormBuilder({ form, onSubmit }) {
   }, [form])
 
   return (
-    form.map((element, elementIndex) => (
+    form && Array.isArray(form) ? form.map((element, elementIndex) => (
       <React.Fragment key={element.id && element.id != 0 ? element.id : elementIndex}>
-        {getInputUIByType(element, setFormData)}
+        {getInputUIByType(element, onChangeFormData)}
       </React.Fragment>
-    ))
+    )) : <React.Fragment />
   );
 }
 
