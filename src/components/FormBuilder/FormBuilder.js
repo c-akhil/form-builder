@@ -4,9 +4,6 @@ import InputButton from "../FormElements/InputButton";
 import InputDate from "../FormElements/InputDate";
 import InputSelect from "../FormElements/InputSelect";
 import InputText from "../FormElements/InputText";
-// const InputText = React.lazy(() => import("../FormElements/InputText"));
-
-
 
 export default function FormBuilder({ form, onSubmit, onChange }) {
   const [formData, setFormData] = useState({});
