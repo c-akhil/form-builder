@@ -21,6 +21,15 @@ function App() {
     <div className="container m-3">
       <div className="row">
         <div className="col-6">
+          <ReactJson
+            name={false}
+            displayObjectSize={false}
+            displayDataTypes={false}
+            enableClipboard={false}
+            src={formData}
+          />
+        </div>
+        <div className="col-6">
           <FormBuilder
             onSubmit={(data) => {
               console.log(data, "submit data")
@@ -29,16 +38,6 @@ function App() {
               setFormData(data);
             }}
             form={formData} />
-        </div>
-        <div className="col-6">
-          <ReactJson
-            name={false}
-            displayObjectSize={false}
-            displayDataTypes={false}
-            enableClipboard={false}
-            src={formData}
-            theme="monokai"
-          />
         </div>
       </div>
     </div>
