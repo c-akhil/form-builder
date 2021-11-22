@@ -22,6 +22,13 @@ function App() {
       className: "form-control",
     },
     {
+      key: 'dob',
+      label: 'Date of Birth',
+      placeholder: "15-08-1947",
+      type: INPUT_TYPES.DATE_PICKER,
+      className: "form-control",
+    },
+    {
       label: 'Submit',
       type: INPUT_TYPES.BUTTON,
       className: "m-3 mx-auto d-flex btn btn-primary",

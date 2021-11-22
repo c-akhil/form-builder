@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { INPUT_TYPES } from "../../constants/inputTypes";
 import InputButton from "../FormElements/InputButton";
+import InputDate from "../FormElements/InputDate";
 import InputText from "../FormElements/InputText";
 // const InputText = React.lazy(() => import("../FormElements/InputText"));
 
@@ -41,6 +42,21 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
             placeholder={element.placeholder}
             value={formData[element.key]}
             setValue={setNewInputValue} />
+        </React.Fragment>
+      )
+    }
+
+    if (element.type === INPUT_TYPES.DATE_PICKER) {
+      return (
+        <React.Fragment>
+          {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          <InputDate
+            className={element.className}
+            placeholder={element.placeholder}
+            value={formData[element.key]}
+            setValue={setNewInputValue}
+          >
+          </InputDate>
         </React.Fragment>
       )
     }
