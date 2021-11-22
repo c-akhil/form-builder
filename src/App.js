@@ -22,6 +22,7 @@ function App() {
       key: 'gender',
       label: 'Gender',
       placeholder: "Male / Female",
+      required: true,
       type: INPUT_TYPES.SELECT,
       options:[
         { value: 'MALE', label: 'Male'},
@@ -44,6 +45,7 @@ function App() {
       placeholder: "15-08-1947",
       type: INPUT_TYPES.DATE_PICKER,
       className: "form-control",
+      required: true,
     },
     {
       key: 'interests',

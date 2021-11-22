@@ -25,6 +25,14 @@ export default function FormBuilder({ form, onChange, showErrors }) {
   }
 
   function getInputUIByType(element, setUpdatedFormData) {
+    let errMsg;
+    if(showErrors){
+      if(element.required && !formData[element.key]){
+        errMsg = `Please enter ${element.label}`;
+      }else if(element.pattern && formData[element.key] && !new RegExp(element.pattern).test(formData[element.key])){
+        errMsg = `Please enter a valid ${element.label}`;
+      }
+    }
 
     const setNewInputValue = (newElementValue) => {
       const newFormData = { ...formData };
@@ -33,14 +41,6 @@ export default function FormBuilder({ form, onChange, showErrors }) {
     }
 
     if (element.type === INPUT_TYPES.TEXT) {
-      let errMsg;
-      if(showErrors){
-        if(element.required && !formData[element.key]){
-          errMsg = `Please enter ${element.label}`;
-        }else if(element.pattern && formData[element.key] && !new RegExp(element.pattern).test(formData[element.key])){
-          errMsg = `Please enter a valid ${element.label}`;
-        }
-      }
       return (
         <React.Fragment>
           {element.label && <label className={element.labelClassName || "form-label"}>{element.label} {element.required && '*'}</label>}
@@ -57,7 +57,7 @@ export default function FormBuilder({ form, onChange, showErrors }) {
     if (element.type === INPUT_TYPES.DATE_PICKER) {
       return (
         <React.Fragment>
-          {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          {element.label && <label className={element.labelClassName || "form-label"}>{element.label} {element.required && '*'}</label>}
           <InputDate
             className={element.className}
             placeholder={element.placeholder}
@@ -65,6 +65,7 @@ export default function FormBuilder({ form, onChange, showErrors }) {
             setValue={setNewInputValue}
           >
           </InputDate>
+          {errMsg && <div className="error-message">{errMsg}</div>}
         </React.Fragment>
       )
     }
@@ -72,7 +73,7 @@ export default function FormBuilder({ form, onChange, showErrors }) {
     if (element.type === INPUT_TYPES.MULTIPLE_CHOICES) {
       return (
         <React.Fragment>
-          {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          {element.label && <label className={element.labelClassName || "form-label"}>{element.label} {element.required && '*'}</label>}
           <InputSelect
             placeholder={element.placeholder}
             className={element.className}
@@ -81,6 +82,7 @@ export default function FormBuilder({ form, onChange, showErrors }) {
             options={element.options}
             isMulti
           />
+          {errMsg && <div className="error-message">{errMsg}</div>}
         </React.Fragment>
       )
     }
@@ -88,7 +90,7 @@ export default function FormBuilder({ form, onChange, showErrors }) {
     if (element.type === INPUT_TYPES.SELECT) {
       return (
         <React.Fragment>
-          {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          {element.label && <label className={element.labelClassName || "form-label"}>{element.label} {element.required && '*'}</label>}
           <InputSelect
             placeholder={element.placeholder}
             className={element.className}
@@ -96,6 +98,7 @@ export default function FormBuilder({ form, onChange, showErrors }) {
             value={formData[element.key]}
             options={element.options}
           />
+          {errMsg && <div className="error-message">{errMsg}</div>}
         </React.Fragment>
       )
     }
