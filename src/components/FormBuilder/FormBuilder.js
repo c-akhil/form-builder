@@ -67,6 +67,7 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
         <React.Fragment>
           {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
           <InputSelect
+            placeholder={element.placeholder}
             className={element.className}
             setValue={setNewInputValue}
             value={formData[element.key]}
@@ -82,6 +83,7 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
         <React.Fragment>
           {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
           <InputSelect
+            placeholder={element.placeholder}
             className={element.className}
             setValue={setNewInputValue}
             value={formData[element.key]}
