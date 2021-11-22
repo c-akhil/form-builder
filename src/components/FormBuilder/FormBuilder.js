@@ -4,8 +4,9 @@ import InputButton from "../FormElements/InputButton";
 import InputDate from "../FormElements/InputDate";
 import InputSelect from "../FormElements/InputSelect";
 import InputText from "../FormElements/InputText";
+import "../FormStyles/FormStyles.css";
 
-export default function FormBuilder({ form, onSubmit, onChange }) {
+export default function FormBuilder({ form, onChange, showErrors }) {
   const [formData, setFormData] = useState({});
 
   const onChangeFormData = (data) => {
@@ -32,14 +33,23 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
     }
 
     if (element.type === INPUT_TYPES.TEXT) {
+      let errMsg;
+      if(showErrors){
+        if(element.required && !formData[element.key]){
+          errMsg = `Please enter ${element.label}`;
+        }else if(element.pattern && formData[element.key] && !new RegExp(element.pattern).test(formData[element.key])){
+          errMsg = `Please enter a valid ${element.label}`;
+        }
+      }
       return (
         <React.Fragment>
-          {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          {element.label && <label className={element.labelClassName || "form-label"}>{element.label} {element.required && '*'}</label>}
           <InputText
             className={element.className}
             placeholder={element.placeholder}
             value={formData[element.key]}
             setValue={setNewInputValue} />
+            {errMsg && <div className="error-message">{errMsg}</div>}
         </React.Fragment>
       )
     }

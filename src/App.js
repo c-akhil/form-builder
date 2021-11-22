@@ -2,9 +2,12 @@ import { useState } from 'react';
 import ReactJson from 'react-json-view';
 import './App.css';
 import FormBuilder from './components/FormBuilder/FormBuilder';
+import { EMAIL_REGEXP } from './components/FormValidations/FormValidations';
 import { INPUT_TYPES } from './constants/inputTypes';
 
 function App() {
+
+  const [showErrors, setShowErrors] = useState(false);
 
   const [formData, setFormData] = useState([
     {
@@ -13,6 +16,7 @@ function App() {
       placeholder: "Jhon",
       type: INPUT_TYPES.TEXT,
       className: "form-control",
+      required: true,
     },
     {
       key: 'gender',
@@ -32,6 +36,7 @@ function App() {
       placeholder: "test@example.com",
       type: INPUT_TYPES.TEXT,
       className: "form-control",
+      pattern: EMAIL_REGEXP
     },
     {
       key: 'dob',
@@ -58,6 +63,7 @@ function App() {
       className: "m-3 mx-auto d-flex btn btn-primary",
       onClick: (data)=>{
         console.log(data, "submit data")
+        setShowErrors(true);
       }
     }
   ]);
@@ -77,6 +83,7 @@ function App() {
         </div>
         <div className="col-6">
           <FormBuilder
+            showErrors={showErrors}
             onChange={(data) => {
               setFormData(data);
             }}
