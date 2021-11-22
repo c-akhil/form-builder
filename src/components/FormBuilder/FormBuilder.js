@@ -74,7 +74,7 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
 
   return (
     form && Array.isArray(form) ? form.map((element, elementIndex) => (
-      <React.Fragment key={element.id && element.id != 0 ? element.id : elementIndex}>
+      <React.Fragment key={element.id && element.id !== 0 ? element.id : elementIndex}>
         {getInputUIByType(element, onChangeFormData)}
       </React.Fragment>
     )) : <React.Fragment />
