@@ -15,6 +15,18 @@ function App() {
       className: "form-control",
     },
     {
+      key: 'gender',
+      label: 'Gender',
+      placeholder: "Male / Female",
+      type: INPUT_TYPES.SELECT,
+      options:[
+        { value: 'MALE', label: 'Male'},
+        { value: 'FEMALE', label: 'Female'},
+        { value: 'OTHERS', label: 'Others'},
+      ],
+      labelClassName: "my-1",
+    },
+    {
       key: 'email',
       label: 'Email',
       placeholder: "test@example.com",
@@ -27,6 +39,18 @@ function App() {
       placeholder: "15-08-1947",
       type: INPUT_TYPES.DATE_PICKER,
       className: "form-control",
+    },
+    {
+      key: 'interests',
+      label: 'Interests',
+      placeholder: "Select interested topics",
+      type: INPUT_TYPES.MULTIPLE_CHOICES,
+      options:[
+        { value: 'Tea', label: 'Tea'},
+        { value: 'coffee', label: 'Coffee'},
+        { value: 'Green Tea', label: 'Green Tea'},
+      ],
+      labelClassName: "my-1",
     },
     {
       label: 'Submit',

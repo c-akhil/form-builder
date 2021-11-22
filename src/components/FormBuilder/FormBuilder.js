@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { INPUT_TYPES } from "../../constants/inputTypes";
 import InputButton from "../FormElements/InputButton";
 import InputDate from "../FormElements/InputDate";
+import InputSelect from "../FormElements/InputSelect";
 import InputText from "../FormElements/InputText";
 // const InputText = React.lazy(() => import("../FormElements/InputText"));
 
@@ -57,6 +58,35 @@ export default function FormBuilder({ form, onSubmit, onChange }) {
             setValue={setNewInputValue}
           >
           </InputDate>
+        </React.Fragment>
+      )
+    }
+
+    if (element.type === INPUT_TYPES.MULTIPLE_CHOICES) {
+      return (
+        <React.Fragment>
+          {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          <InputSelect
+            className={element.className}
+            setValue={setNewInputValue}
+            value={formData[element.key]}
+            options={element.options}
+            isMulti
+          />
+        </React.Fragment>
+      )
+    }
+
+    if (element.type === INPUT_TYPES.SELECT) {
+      return (
+        <React.Fragment>
+          {element.label && <label className={element.labelClassName || "form-label"}>{element.label}</label>}
+          <InputSelect
+            className={element.className}
+            setValue={setNewInputValue}
+            value={formData[element.key]}
+            options={element.options}
+          />
         </React.Fragment>
       )
     }
